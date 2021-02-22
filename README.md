@@ -1,22 +1,18 @@
-Below is the output of the `audit_doc` script:
+To try out The Electoral Corruption Killer, click this link for a live sandbox demo:
 
-[Workflow For The Electoral Corruption Killer](#workflow)
-[Introduction](#intro)
-[To Kick-off Your Campaign](#kick-off)
-[Running Your Campaign and Office](#campaign)
+https://delegate.network/teck/audit
 
-#workflow
-Workflow For The Electoral Corruption Killer
-## intro
-Introduction
-The Electoral Corruption Killer is an auditable proxy voting (proxy) system designed to stop betrayals of the public by Congress such as occurred with the 1998 expansion of H-1b visas when Congress overwhelmingly disregarded the will of 82% of the public. See:
+Below is the output of the `audit_doc` script. 
+# Workflow For The Electoral Corruption Killer
+
+## Introduction
+*The Electoral Corruption Killer* is an *auditable* vote-by-proxy system designed to stop betrayals of the public by Congress such as occurred with the 1998 expansion of H-1b visas when Congress overwhelmingly disregarded the will of 82% of the public. See:
 
 https://web.archive.org/web/20010217052101/http://www.ieeeusa.org/releases/1998/pr091698.html
 
-It's based on a computer program consisting of less than 120 lines of Perl code (not counting preformatted text like this). TECK makes it easy for a small campaign to win against a major incumbent in an election for Representative or perhaps even Senator, at the State or perhaps even the National level. Unlike ordinary electronic voting systems with hundreds of thousands of lines of code and sophisticated database technology, TECK works by making all votes public via a website so anyone with sufficient interest can at any time verify the audit. The program script itself is designed to be simple and small so anyone with a modicum of computer system administration expertise can analyze and install it, but as already stated the key to security of this system is in the public availability of the audit, so don't be mislead by ease of analyzing a small script and the care with which the installation is done -- that's not what is important -- again -- the key is the public availability of the audit. TECK works by keeping track of citizen delegates so that ordinary citizens don't need to be intimately involved with politics to exercise their legitimate rights as the ultimate keepers of security. If there is someone they trust, say an elder in a family or church, they simply declare their delegate to be exercised by that trustee. These trustees may in turn throw their delegates to other trustees. All delegates are revocable at any time. The sole plank in the campaign platform of TECK candidates is that they will make a good-faith attempt to abide by the votes of their constituents during the legislative session. Given the current corrupt state of electoral politics and the alienation of the voters from it, anyone who knows someone who can run a small computer system can make a credible bid against an incumbent as a TECK.
+It's based on a computer program consisting of less than 120 lines of Perl code (not counting preformatted text like this). TECK makes it easy for a small campaign to win against a major incumbent in an election for Representative or perhaps even Senator, at the State or perhaps even the National level. Unlike ordinary electronic voting systems with hundreds of thousands of lines of code and sophisticated database technology, TECK works by making all votes public via a website so anyone with sufficient interest can at any time verify the *audit*. The program script itself is designed to be simple and small so anyone with a modicum of computer system administration expertise can analyze and install it, but as already stated the key to security of this system is in the public availability of the *audit*, so don't be mislead by ease of analyzing a small script and the care with which the installation is done. That's not what is important.  Again: the key is the public availability of the *audit*. TECK works by keeping track of citizen delegates so that ordinary citizens *can* but don't *need* to be intimately involved with politics to exercise their legitimate rights as the ultimate keepers of security. If there is someone they trust, say an elder in a family or church, they simply declare their delegate to be that trustee. These trustees may in turn throw their delegates to other trustees. All delegates are revocable at any time. The sole plank in the campaign platform of TECK candidates is that they will make a good-faith attempt to abide by the votes of their constituents *as **represented**_ by their delegates* during the legislative session. Given the current corrupt state of electoral politics and the alienation of the voters from it, anyone who knows someone who can run a small computer system can make a credible bid against an incumbent as a TECK.
 
-## kick-off
-To Kick-off Your Campaign
+## To Kick-off Your Campaign
 Kick off your campaign as The Electoral Corruption Killer with a bang! Or at least a bash. Here is a suggested procedure to create synergy between candidates for TECK and their constituents:
 
 1. Set up a website for your office. This website must be able to run Perl CGI scripts that require as much as a CPU second on a modern processor and 100M of RAM.
@@ -39,8 +35,7 @@ Perl, GUI interface, a web browser (probably Mozilla) and a web server (probably
 
  7. Say goodnight to your guests and secure the facility.
 
-## campaign
-Running Your Campaign and Office
+## Running Your Campaign and Office
 During the campaign simply run your office as you would during the legislative session:
 
 1. Solicit and accept input from voters on how they want to vote on various bills and to whom they wish to delegate their votes. Input it to the secured audit system.
