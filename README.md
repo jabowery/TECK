@@ -1,6 +1,6 @@
 To try out The Electoral Corruption Killer, click this link for a live sandbox demo:
 
-https://delegate.network/teck/audit
+https://delegate.network/teck/sandbox/audit
 
 # Workflow For The Electoral Corruption Killer
 
