@@ -2,7 +2,6 @@ To try out The Electoral Corruption Killer, click this link for a live sandbox d
 
 https://delegate.network/teck/audit
 
-Below is the output of the `audit_doc` script. 
 # Workflow For The Electoral Corruption Killer
 
 ## Introduction
