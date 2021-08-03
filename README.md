@@ -16,7 +16,7 @@ TECK works by making all votes public via a website so anyone with sufficient in
 2. In your web browser, enter the localhost URL for the **audit** script.  This should present you with the user interface with changes enabled.
 3. After verifying the script is working, delete the **audit_data.pl** file.
 4. In your web browser, enter the localhost URL for the **audit** script again.  This will initialize an empty **audit_data.pl** file.
-5. Create a symbolic link to the localhost accessible cgi directory copies of **audit** and **audit_data.pl** from a dorectory capable of running cgi web scripts at a public domain name.
+5. Create a symbolic link to the localhost accessible cgi directory copies of **audit** and **audit_data.pl** from a directory capable of running cgi web scripts at a public domain name.
 6. In your web browser, enter the public domain name URL for the **audit** script.  This will make public the current audit.
 
 ## Running Your Campaign and Office
