@@ -24,7 +24,9 @@ During the campaign simply run your office as you would during the legislative s
 
 1. Solicit and accept input from voters on how they want to vote on various bills and to whom they wish to delegate their votes. 
 2. Input their preferences via the localhost URL.
-3. Optimize your office as necessary to secure it and speed it. (An obvious suggestion is to give preference to processing easily-verified authorizations. For example, put up a caller-ID telephone answering computer for people to call. If they leave their name, and their caller ID is a listed phone number matching their name, then process their authorizations first. Process the others as you can afford the time and resources to authenticate them. Let people know how they can help ease your timely processing of their authorizations.)
+3. Optimize your office as necessary to secure it and speed it. Some suggestions:
+3.1. Give preference to processing easily-verified citizens.
+3.2. Obtain property assessment records from your county and mail a registration ID to each residential address.  Ask them for that ID when they call in.
 
 Copyright 2003 The Electoral Corruption Killer
 
