@@ -1,0 +1,174 @@
+#!/usr/bin/env perl
+# NAME: audit
+# AUTH: James A. Bowery (jab)
+# NOTE: Copyright (C) 2003 The Electoral Corruption Killer
+#           Shenandoah, IA
+#           All Rights Reserved
+#           
+#           This file is subject to the Reciprocal Public License 
+#           ("RPL") Version 1.0 and You may not copy or use this file 
+#           in either source code or executable form, except in 
+#           compliance with the terms and conditions of the RPL.
+#
+#           You may obtain a copy of RPL from
+#           http://www.opensource.org/licenses/rpl.php
+#
+#           All software distributed under the Licenses is provided strictly
+#           on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+#           EXPRESS OR IMPLIED, AND THE ELECTORAL CORRUPTION KILLER HEREBY 
+#           DISCLAIMS ALL SUCH WARRANTIES, INCLUDING WITHOUT LIMITATION, 
+#           ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+#           PURPOSE, QUIET ENJOYMENT, OR NON-INFRINGEMENT. 
+#           See Licenses for specific language governing rights and 
+#           limitations under the Licenses.
+#
+#
+
+BEGIN{
+if(!-e 'audit_data.pl'){
+    open A,">audit_data.pl" or die "Can't initialize audit_data.pl";
+    print A "1";
+    close A;
+}
+}
+use CGI::Carp;
+use CGI qw/:standard :debug/;
+use Data::Dumper;
+use Fcntl qw/:flock/;
+use lib '.';
+-e 'audit_writable' # START CRITICAL SECTION
+and (open(MUTEX,">audit_mutex") or die "Can't write audit_mutex: $!")
+and (flock(MUTEX,LOCK_EX) or die "Can't lock critical section: $!");
+require 'audit_data.pl';
+print header;
+print "<html><body>\n";
+$phoneRE='(\d{10})';
+$billRE='([1-9]\d{0,5})';
+$voteRE='(0|1|2)';
+$deleteRE='(#)';
+if (param())  {
+    $op=param('op');
+    while($op=~s/  / /g){}; 
+    $op=~s/^\s*|\s*$|[^\d# ]//g;
+    if(-e 'audit_writable'){
+    if(($phone,$delegates)=($op=~/^$phoneRE (($phoneRE )*$phoneRE)$/)){
+	$citizen{$phone}->{"delegates"}=[split /\s+/,$delegates];
+        print "$phone throws delegate to $delegates.<p>\n";
+    }elsif(($phone)=($op=~/^$phoneRE $deleteRE$/)){
+	delete $citizen{$phone}->{"delegate"};
+        print "$phone retains delegate.<p>\n";
+    }elsif(($phone,$bill,$voteOrDelegate,$vote,$delegate)=($op=~/^$phoneRE $billRE ($voteRE|$phoneRE)$/)){
+        $citizen{$phone}->{$bill}=$voteOrDelegate;
+        if(defined($vote)){
+            print "$phone votes on bill $bill ";
+            print (('"Nay."','"Yea."','"Abstain."')[$vote]);
+            print "<p>\n";
+        }elsif($delegate){
+            print "$phone throws delegate on bill $bill to $delegate.<p>\n";
+        }
+    }elsif(($phone,$bill,$delete)=($op=~/^$phoneRE $billRE $deleteRE$/)){
+        print "$phone exercises no authority specific to bill $bill.<p>\n";
+        delete $citizen{$phone}->{$bill};
+    
+    }
+    }
+    if($phone){
+        open A,">audit_data.pl.new";
+        print A Data::Dumper->Dump([\%citizen],[qw(*citizen)]);
+        close A;
+	`mv audit_data.pl.new audit_data.pl`;
+    }elsif(($phone,$bill)=($op=~/^$phoneRE $billRE$/)){
+        showVote();
+    }elsif(($phone)=($op=~/^$phoneRE$/)){
+        print "<pre>";
+        print Dumper($citizen{$phone});
+        print "</pre>\n";
+    }elsif(($bill)=($op=~/^$billRE$/)){
+        $yeas=$nays=$abstains=$absents=0;
+        for $phone (keys %citizen){
+            showVote();
+            if($vote==1){$yeas++}
+            elsif(!defined($vote)){$absents++}
+            elsif($vote==0){$nays++}
+            elsif($vote==2){$abstains++}
+        }
+        print "Yeas $yeas, Nays $nays, Abstains $abstains, Absents $absents\n";
+    }else{ print "No query processed:<br>\"$op\"\n" }
+}
+-e audit_writable   # END CRITICAL SECTION
+and (flock(MUTEX,LOCK_UN) or die "Can't unlock audit_mutex: $!");
+print      "<hr>".h1('Enter delegate query:'),
+      start_form(-method=>'GET',-name=>'op', -id=>'op'),
+      '<pre>
+Examples:
+1822
+    Audit the vote for bill 1822.
+5554274444 42
+    Show how 4274444\'s vote is cast on bill 42.
+5552242759
+    Dump data for 2242759.';
+print '
+5554274444 5554271111
+    Set 5554274444\'s default delegate to 5554271111.
+5554882222 #
+    5554882222 wants no default delegate.
+5554274444 5554271111 5554273239
+    Set 5554274444\'s first default delegate to 5554271111 and second to 5554273239. Add as many more as desired.
+5555228222 122 1
+    Set 5555228222\'s vote on bill 122 to "Yea."
+5558221121 42 0
+    Set 5558221121\'s vote on bill 42 to "Nay."
+5554293323 9402 2
+    Set 5554293323\'s vote on bill 9402 to "Abstain."
+5552242759 1822 5554274444
+    Set 5552242759 to throw delegate on bill 1822 to 5554274444.
+5554291178 322 #
+    Set 5554291178 to throw delegate on bill 322 to default delegate if any.' if -e "audit_writable";
+
+print '</pre>',textfield(-id=>'op',-name=>'op',-cols=>80,-maxlength=>1000);
+print submit, end_form,"<hr>";
+print "<pre>";
+print "The current audit_data.pl database:\n\n";
+print Data::Dumper->Dump([\%citizen],[qw(*citizen)]);
+print "</pre>\n";
+print "</body></html>";
+exit(0);
+
+sub showVote{
+    undef($vote) unless @priorPhones;
+    push @priorPhones,$phone;
+    if($citizen{$phone}->{$bill}=~/($voteRE|$phoneRE)/){
+        if($3){
+            print "$phone throws delegate for $bill to $3";
+            if(@priorPhones == $3){
+                print " This is a vicious cycle, hence @priorPhones is absent.<p>\n";
+            }else{
+                print ".  ";
+                do{local $phone=$3; showVote()};
+            }
+        }else{
+            $vote=$2;
+            print "$phone votes ";
+            print (('"Nay."','"Yea."','"Abstain."')[$vote]);
+            print ".<p>\n";
+        }
+    }elsif($delegates=$citizen{$phone}->{"delegates"}){
+        my $n=0;
+        for my $delegate (@$delegates){
+            $n++;
+            print "$phone\'s #$n default delegate is $delegate.  ";
+            if(grep /$delegate/,@priorPhones){
+                print " This is a vicious cycle, hence $delegate is absent.  ";
+                next;
+            }else{
+                do{local $phone=$delegate; showVote();}
+            }
+            last if defined($vote);
+        }
+        print "<p>\n";
+    }else{
+        print "$phone is absent.<p>\n";
+    }
+    pop @priorPhones;
+    return $vote;
+}
