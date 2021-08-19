@@ -8,9 +8,14 @@ https://delegate.network/teck/sandbox/audit
 
 Imagine every member of Congress were pressured into making one and only one campaign promise:
 
-"I will cede my voting power to my constituents as determined by their publicly auditable and at-will revocable delegations of authority."
+"I will cede my voting power to my constituents."
 
-Unlike political rhetoric, any voter can, at any time, determine whether this promise is being kept or not.
+Under TECK:
+
+* Political campaigns are simple demonstrations of how constituents would vote on the bills currently before Congress.
+* Any voter can, at any time, audit whether this campaign promise is being kept or not.
+* Constituents may auditably delegate their voting power and, at-will, recall their delegation.
+* All Congressional negotiations devolve to negotiations between constituent delegations.
 
 TECK works by making all votes, delgated or direct, public via a website so anyone with sufficient interest can at any time verify the *audit*. The key is the public availability of the *audit*. TECK works by keeping track of citizen delegates so that ordinary citizens *can* but don't *need* to be actively involved with politics to exercise their legitimate rights as the ultimate auditers. If there is someone they trust, say an elder in a family or church, they simply declare their delegate to be that trustee. These trustees may in turn throw their delegates to other trustees. **All delegates are revocable at any time**. The sole plank in the campaign platform of TECK candidates is that they will make a good-faith attempt to abide by the votes of their constituents *as **represented** by their delegates* during the legislative session. Given the current corruption of electoral politics and the alienation of the voters from it, anyone who knows someone who can run a small computer system can make a credible bid against an incumbent as a TECK.
 
