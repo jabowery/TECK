@@ -139,12 +139,13 @@ sub showVote{
     push @priorPhones,$phone;
     if($citizen{$phone}->{$bill}=~/($voteRE|$phoneRE)/){
         if($3){
-            print "$phone throws delegate for $bill to $3";
-            if(@priorPhones == $3){
+	    $delegateForBill = $3;
+            print "$phone throws delegate for $bill to $delegateForBill";
+            if(grep /$delegateForBill/,@priorPhones){
                 print " This is a vicious cycle, hence @priorPhones is absent.<p>\n";
             }else{
                 print ".  ";
-                do{local $phone=$3; showVote()};
+                do{local $phone=$delegateForBill; showVote()};
             }
         }else{
             $vote=$2;
